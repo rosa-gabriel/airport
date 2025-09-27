@@ -1,0 +1,231 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# ✈️ Análise de Atrasos de Voos no Brasil (2022 - 2024)\n",
+        "\n",
+        "Neste notebook, vamos explorar e analisar os **atrasos em voos no Brasil** entre 2022 e 2024.  \n",
+        "O objetivo é entender:\n",
+        "\n",
+        "- Quais aeroportos mais acumulam atrasos;\n",
+        "- Como os atrasos mudaram ao longo do tempo;\n",
+        "- Diferenças por dia da semana e período do dia;\n",
+        "- Quais companhias aéreas mais sofrem com atrasos;\n",
+        "- Tendências gerais de aumento ou queda de atrasos nos últimos anos.\n",
+        "\n",
+        "---\n",
+        "\n",
+        "### 🔎 Metodologia\n",
+        "1. **Carregamento e limpeza dos dados** → transformar os arquivos CSV brutos em um `DataFrame` organizado.  \n",
+        "2. **Engenharia de atributos** → criar colunas úteis como tempo de atraso, períodos do dia e flag de atraso (>15 minutos).  \n",
+        "3. **Análises exploratórias** → responder perguntas como:\n",
+        "   - Qual aeroporto mais atrasa?\n",
+        "   - Os atrasos aumentaram ou diminuíram?\n",
+        "   - Qual período do dia mais sofre?\n",
+        "   - Quais companhias mais atrasam?  \n",
+        "4. **Visualizações** → gerar gráficos claros para apoiar os achados.  \n",
+        "5. **Insights finais** → resumo com as principais descobertas.\n",
+        "\n",
+        "---"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "from pathlib import Path\n",
+        "import warnings\n",
+        "from datetime import datetime\n",
+        "\n",
+        "# Configurações de estilo\n",
+        "plt.style.use('seaborn-v0_8')\n",
+        "sns.set_palette(\"husl\")\n",
+        "warnings.filterwarnings('ignore')"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 1. Carregando e preparando os dados\n",
+        "\n",
+        "Os dados vêm de arquivos CSV públicos da ANAC, processados e unificados em `flights_all.csv`.  \n",
+        "Primeiro, vamos carregar, limpar e transformar em um formato pronto para análise."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "# Funções do script original\n",
+        "def load_and_prepare_data(file_path: str) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def engineer_features(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_airports_most_delays(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_airport_delay_changes(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_yearly_trend(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_delays_by_weekday(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_delays_by_period(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def analyze_delays_by_airline(df: pd.DataFrame) -> pd.DataFrame:\n",
+        "    ...\n",
+        "def create_visualizations(...):\n",
+        "    ...\n",
+        "def save_reports(...):\n",
+        "    ...\n",
+        "def generate_insights(...):\n",
+        "    ..."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "# Carregando os dados\n",
+        "data_file = \"data/processed/flights_all.csv\"\n",
+        "df = load_and_prepare_data(data_file)\n",
+        "df = engineer_features(df)\n",
+        "df.head()"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 2. Análises principais\n",
+        "\n",
+        "Agora, vamos responder às perguntas definidas:\n",
+        "\n",
+        "1. **Quais aeroportos mais atrasam?**  \n",
+        "2. **Os atrasos aumentaram ou diminuíram ao longo dos anos?**  \n",
+        "3. **Quais dias da semana concentram mais atrasos?**  \n",
+        "4. **Qual período do dia sofre mais atrasos?**  \n",
+        "5. **Quais companhias aéreas mais atrasam?**  "
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "airport_delays = analyze_airports_most_delays(df)\n",
+        "airport_changes = analyze_airport_delay_changes(df)\n",
+        "yearly_delays = analyze_yearly_trend(df)\n",
+        "weekday_delays = analyze_delays_by_weekday(df)\n",
+        "period_delays = analyze_delays_by_period(df)\n",
+        "airline_delays = analyze_delays_by_airline(df)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 3. Visualizações\n",
+        "\n",
+        "Agora vamos gerar gráficos para ilustrar os principais achados."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "output_dir = Path(\"reports\")\n",
+        "output_dir.mkdir(exist_ok=True)\n",
+        "\n",
+        "create_visualizations(df, airport_delays, yearly_delays, weekday_delays,\n",
+        "                     period_delays, airline_delays, output_dir)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Os gráficos foram salvos na pasta `reports/figures/`:"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 4. Relatórios tabulares\n",
+        "\n",
+        "Além dos gráficos, salvamos também relatórios em CSV com os principais resumos."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "save_reports(airport_delays, airport_changes, yearly_delays, weekday_delays,\n",
+        "            period_delays, airline_delays, output_dir)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 5. Insights finais"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {},
+      "outputs": [],
+      "source": [
+        "insights = generate_insights(df, airport_delays, airport_changes, yearly_delays)\n",
+        "print(insights)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 📌 Conclusão\n",
+        "\n",
+        "Com base nesta análise, conseguimos identificar:\n",
+        "\n",
+        "- O aeroporto que mais atrasa, assim como as companhias aéreas mais problemáticas;  \n",
+        "- A tendência dos atrasos ao longo dos anos (aumentando ou diminuindo);  \n",
+        "- Diferenças relevantes por **dia da semana** e **período do dia**;  \n",
+        "- Impacto dos atrasos em números absolutos e percentuais.  \n",
+        "\n",
+        "Essa análise fornece **insumos valiosos para companhias aéreas, autoridades aeroportuárias e passageiros**, ajudando a entender os gargalos do transporte aéreo no Brasil."
+      ]
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.11"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
